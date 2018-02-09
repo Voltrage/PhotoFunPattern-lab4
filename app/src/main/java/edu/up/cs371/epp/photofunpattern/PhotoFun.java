@@ -4,9 +4,11 @@ import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.graphics.Bitmap;
         import android.graphics.drawable.BitmapDrawable;
-        import android.widget.ImageView;
+import android.widget.ImageView;
         import android.widget.Button;
         import android.view.View;
+
+import java.util.ArrayList;
 
 /**
  *  class PhotoFun controls this photo manipulation app.
@@ -21,6 +23,12 @@ public class PhotoFun extends AppCompatActivity {
     // Image resources
     private Bitmap myOriginalBmp;
     private ImageView myNewImageView;
+
+    private ImageView myOriginalView;
+
+
+    private String[] myImageNames;
+    private ArrayList<Bitmap> myImageBmps;
 
     /*
     * onCreate This constructor lays out the user interface, initializes the
@@ -56,7 +64,7 @@ public class PhotoFun extends AppCompatActivity {
     */
     private class grayFilterButtonListener implements View.OnClickListener {
         public void onClick(View button) {
-            GrayFilter filter = new GrayFilter();
+            SmoothFilter filter = new SmoothFilter();
             myNewImageView.setImageBitmap(filter.apply(myOriginalBmp));
         }
     }
@@ -69,9 +77,68 @@ public class PhotoFun extends AppCompatActivity {
     private class brightnessFilterButtonListener
             implements View.OnClickListener {
         public void onClick(View button) {
-            BrightnessFilter filter = new BrightnessFilter();
+            WestEdgeFilter filter = new WestEdgeFilter();
             myNewImageView.setImageBitmap(filter.apply(myOriginalBmp));
         }
     }
+
+
+
+/**
+
+    private void initSpinner (){
+        Spinner spinner = (Spinner) findViewById(R.id.imageNames);
+        myImageNames =
+                getResources().getStringArray(R.array.imageNames);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                myImageNames);
+        adapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener
+                (new MySpinnerListener());
+    }
+
+
+
+    private void initImageArray (){
+        myImageBmps = new ArrayList<Bitmap>();
+        TypedArray imageIds =
+                getResources().obtainTypedArray(R.array.imageIdArray);
+
+        for (int i=0; i<myImageNames.length; i++) {
+            int id = imageIds.getResourceId(i, 0);
+            if (id == 0)
+                id = imageIds.getResourceId(0, 0);
+            Bitmap bmp =
+                    BitmapFactory.decodeResource(getResources(), id);
+            myImageBmps.add(bmp);
+        }
+    }
+
+
+    private class MySpinnerListener implements
+            OnItemSelectedListener {
+        @Override
+        public void onItemSelected(AdapterView<?> parentView,
+                                   View selectedItemView,
+                                   int position,
+                                   long id){
+            myOriginalView.setImageBitmap
+                    (myImageBmps.get(position));
+            BitmapDrawable originalDrawableBmp =
+                    (BitmapDrawable) myOriginalView.getDrawable();
+            myOriginalBmp = originalDrawableBmp.getBitmap();
+        }
+
+        public void onNothingSelected(AdapterView<?> parentView){
+
+        }
+    }
+
+*/
+
 }
 

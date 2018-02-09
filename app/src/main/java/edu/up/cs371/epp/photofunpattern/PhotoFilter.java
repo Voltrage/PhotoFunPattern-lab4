@@ -3,12 +3,12 @@ package edu.up.cs371.epp.photofunpattern;
 import android.graphics.Bitmap;
 
 /**
- *  class PhotoFilter is the abstract filter parent class. Its default behavior
- *  is the leave an image unchanged.
+ * class PhotoFilter is the abstract filter parent class. Its default behavior
+ * is the leave an image unchanged.
  *
- *  @author Edward C. Epp
- *  @version November 2017
- *  https://github.com/edcepp/PhotoFunPattern
+ * @author Edward C. Epp
+ * @version November 2017
+ *          https://github.com/edcepp/PhotoFunPattern
  */
 public abstract class PhotoFilter {
 
@@ -36,8 +36,8 @@ public abstract class PhotoFilter {
     * @param inPixel is a 32 bit pixel that contains RGB color values
     * @return a new Pixel in which unchanged color components
     */
-    protected int transformPixel (int inPixel){
-        return inPixel;
+    protected int transformPixel(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8) {
+        return p4;
     }
 
     /*
@@ -53,9 +53,11 @@ public abstract class PhotoFilter {
 
         Bitmap newBmp = Bitmap.createBitmap(width, height, inBmp.getConfig());
 
-        for (int w = 0; w < width; w++) {
-            for (int h = 0; h < height; h++) {
-                int outPixel = transformPixel(inBmp.getPixel(w, h));
+
+        //to handle image boundary cases, don't pass in outer edges
+        for (int w = 1; w < width - 1; w++) {
+            for (int h = 1; h < height - 1; h++) {
+                int outPixel = transformPixel(inBmp.getPixel(w-1, h+1), inBmp.getPixel(w, h+1), inBmp.getPixel(w+1, h+1), inBmp.getPixel(w-1, h), inBmp.getPixel(w, h), inBmp.getPixel(w+1, h), inBmp.getPixel(w-1, h-1), inBmp.getPixel(w, h-1), inBmp.getPixel(w+1, h-1));
                 newBmp.setPixel(w, h, outPixel);
             }
         }

@@ -1,21 +1,26 @@
 package edu.up.cs371.epp.photofunpattern;
 
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.graphics.Bitmap;
-        import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-        import android.widget.Button;
-        import android.view.View;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 /**
- *  class PhotoFun controls this photo manipulation app.
+ * class PhotoFun controls this photo manipulation app.
  *
- *  @author Edward C. Epp
- *  @version November 2017
- *   https://github.com/edcepp/PhotoFunPattern
+ * @author Edward C. Epp
+ * @version November 2017
+ *          https://github.com/edcepp/PhotoFunPattern
  */
 
 public class PhotoFun extends AppCompatActivity {
@@ -56,6 +61,11 @@ public class PhotoFun extends AppCompatActivity {
                 (Button) findViewById(R.id.brightnessFilterButton);
         brightnessFilterButton.setOnClickListener
                 (new brightnessFilterButtonListener());
+
+        /**
+         * initSpinner();
+         * initImageArray();
+         */
     }
 
     /*
@@ -82,11 +92,8 @@ public class PhotoFun extends AppCompatActivity {
         }
     }
 
-
-
 /**
-
-    private void initSpinner (){
+    private void initSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.imageNames);
         myImageNames =
                 getResources().getStringArray(R.array.imageNames);
@@ -103,12 +110,12 @@ public class PhotoFun extends AppCompatActivity {
 
 
 
-    private void initImageArray (){
+    private void initImageArray() {
         myImageBmps = new ArrayList<Bitmap>();
         TypedArray imageIds =
                 getResources().obtainTypedArray(R.array.imageIdArray);
 
-        for (int i=0; i<myImageNames.length; i++) {
+        for (int i = 0; i < myImageNames.length; i++) {
             int id = imageIds.getResourceId(i, 0);
             if (id == 0)
                 id = imageIds.getResourceId(0, 0);
@@ -125,7 +132,7 @@ public class PhotoFun extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parentView,
                                    View selectedItemView,
                                    int position,
-                                   long id){
+                                   long id) {
             myOriginalView.setImageBitmap
                     (myImageBmps.get(position));
             BitmapDrawable originalDrawableBmp =
@@ -133,12 +140,12 @@ public class PhotoFun extends AppCompatActivity {
             myOriginalBmp = originalDrawableBmp.getBitmap();
         }
 
-        public void onNothingSelected(AdapterView<?> parentView){
+        public void onNothingSelected(AdapterView<?> parentView) {
 
         }
     }
 
-*/
+     */
 
 }
 
